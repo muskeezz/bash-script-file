@@ -1,4 +1,13 @@
 #!/bin/bash
+
+########################
+# Author: Andre Manatad
+# Date: 07/10/2023
+#
+# CrushFTP10 Backup Script
+#
+# Version: v1
+#########################
 # Variables
 remote="andre@10.10.10.187"
 conf_path="/var/opt/CrushFTP10"
