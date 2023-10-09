@@ -22,9 +22,6 @@
 #rsync $OPT_EXCLUDE -e ssh $remote:/$data_path $data_path &> $LOGFILE
 
 echo -e "`date '+%Y%m%d %H%M'` /var/opt/CrushFTP10/users/MainUsers \n`rsync -zvn --exclude=lost+found --exclude=admin andre@10.10.10.187:/var/opt/CrushFTP10/users/MainUsers /var/opt/CrushFTP10/users/MainUsers --stats | sed '0,/^$/d'` \nfinish `date '+%Y%m%d %H%M'` \n`head -n 2000 ./ftp.log`" > ftp.log
-#printf "`date '+%Y%m%d %H%M'` /var/opt/CrushFTP10/WebInterface/images `rsync -zvn --exclude=lost+found --exclude=admin andre@10.10.10.187:/var/opt/CrushFTP10/WebInterface/images /var/opt/CrushFTP10/WebInterface/images --stats | sed '0,/^$/d'` finish `date '+%Y%m%d %H%M'` \n\n`head -n 2000 ./ftp.log`" > ftp.log
-#printf "`date '+%Y%m%d %H%M'` /var/opt/CrushFTP10/WebInterface/favicon.ico `rsync -zvn --exclude=lost+found --exclude=admin andre@10.10.10.187:/var/opt/CrushFTP10/WebInterface/favicon.ico /var/opt/CrushFTP10/WebInterface/ --stats | sed '0,/^$/d'` finish `date '+%Y%m%d %H%M'` \n\n`head -n 2000 ./ftp.log`" > ftp.log
-#printf "`date '+%Y%m%d %H%M'` /media/Logs `rsync -zvn --exclude=lost+found --exclude=admin andre@10.10.10.187:/media/Logs /media/Logs --stats | sed '0,/^$/d'` finish `date '+%Y%m%d %H%M'` \n\n`head -n 2000 ./ftp.log`" > ftp.log
-
-
-#test
+printf "`date '+%Y%m%d %H%M'` /var/opt/CrushFTP10/WebInterface/images `rsync -zvn --exclude=lost+found --exclude=admin andre@10.10.10.187:/var/opt/CrushFTP10/WebInterface/images /var/opt/CrushFTP10/WebInterface/images --stats | sed '0,/^$/d'` finish `date '+%Y%m%d %H%M'` \n\n`head -n 2000 ./ftp.log`" > ftp.log
+printf "`date '+%Y%m%d %H%M'` /var/opt/CrushFTP10/WebInterface/favicon.ico `rsync -zvn --exclude=lost+found --exclude=admin andre@10.10.10.187:/var/opt/CrushFTP10/WebInterface/favicon.ico /var/opt/CrushFTP10/WebInterface/ --stats | sed '0,/^$/d'` finish `date '+%Y%m%d %H%M'` \n\n`head -n 2000 ./ftp.log`" > ftp.log
+printf "`date '+%Y%m%d %H%M'` /media/Logs `rsync -zvn --exclude=lost+found --exclude=admin andre@10.10.10.187:/media/Logs /media/Logs --stats | sed '0,/^$/d'` finish `date '+%Y%m%d %H%M'` \n\n`head -n 2000 ./ftp.log`" > ftp.log
