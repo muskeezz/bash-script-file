@@ -1,0 +1,32 @@
+20231008 2057 /var/opt/CrushFTP10/users/MainUsers 
+Number of files: 0
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 0 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 38
+Total bytes sent: 35
+Total bytes received: 38
+
+sent 35 bytes  received 38 bytes  48.67 bytes/sec
+total size is 0  speedup is 0.00 (DRY RUN) 
+finish 20231008 2057 
+20231008 2056 /var/opt/CrushFTP10/users/MainUsers 
+Number of files: 0
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 0 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 38
+Total bytes sent: 35
+Total bytes received: 38
+
+sent 35 bytes  received 38 bytes  48.67 bytes/sec
+total size is 0  speedup is 0.00 (DRY RUN) 
+finish 20231008 2056 
