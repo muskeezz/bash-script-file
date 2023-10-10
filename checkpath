@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+#check if distination folder exist
+
+dist="$HOME/crushftp/backup1"
+
+checkpath () {
+([ ! -d "$dist" ] && mkdir -p $dist) &>/dev/null
+}
+
+checkpath
+ls $HOME/crushftp
+ls $HOME/crushftp/backup*

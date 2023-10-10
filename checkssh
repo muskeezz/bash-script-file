@@ -1,0 +1,11 @@
+#!/bin/bash
+
+remote="10.10.10.187"
+user="itsmftp"
+
+remoteuserpasswordless () {
+ $(ssh -qo BatchMode=yes $user@$remote exit)
+ [ $? -eq "0" ] && echo "Yes passwordless!" || echo "Not passwordless!"
+}
+
+remoteuserpasswordless

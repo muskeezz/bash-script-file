@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+#check if rsync package is installed
+
+pkg="rsync"
+
+
+checkpkg () {
+(! type -P $pkg && sudo yum install $pkg -yy) &>/dev/null
+}
+
+checkpkg
+

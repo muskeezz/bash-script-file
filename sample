@@ -1,0 +1,2 @@
+#!/bin/bash
+rsync -azvhP --exclude={'amdocs.sh','allegro.sh'} $HOME/crushftp/oldscript $HOME/crushftp/backup
