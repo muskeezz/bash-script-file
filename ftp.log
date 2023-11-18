@@ -1,0 +1,119 @@
+receiving incremental file list
+MainUsers/
+MainUsers/Abojeb/
+MainUsers/Abojeb/VFS/
+MainUsers/Allegro/
+MainUsers/Allegro/VFS/
+MainUsers/Amdocs/
+MainUsers/Amdocs/VFS/
+MainUsers/Amkor/
+MainUsers/Amkor/VFS/
+MainUsers/BHP/
+MainUsers/BHP/VFS/
+MainUsers/CalambaGov/
+MainUsers/CalambaGov/VFS/
+MainUsers/CebuGov/
+MainUsers/CebuGov/VFS/
+MainUsers/Citibank/
+MainUsers/Citibank/VFS/
+MainUsers/Common/
+MainUsers/Common/VFS/
+MainUsers/CompMer/
+MainUsers/CompMer/VFS/
+MainUsers/Globe/
+MainUsers/Globe/VFS/
+MainUsers/GoldenABC/
+MainUsers/GoldenABC/VFS/
+MainUsers/Huawei/
+MainUsers/Huawei/VFS/
+MainUsers/InfoSys/
+MainUsers/InfoSys/VFS/
+MainUsers/Interactive/
+MainUsers/Interactive/VFS/
+MainUsers/Internal/
+MainUsers/Internal/VFS/
+MainUsers/Kerry/
+MainUsers/Kerry/VFS/
+MainUsers/Kerry_new/
+MainUsers/Kerry_new/VFS/
+MainUsers/Kyndryl/
+MainUsers/Kyndryl/VFS/
+MainUsers/Local/
+MainUsers/Local/VFS/
+MainUsers/Maxim/
+MainUsers/Maxim/VFS/
+MainUsers/Procurri/
+MainUsers/Procurri/VFS/
+MainUsers/SCB/
+MainUsers/SCB/VFS/
+MainUsers/SMAC/
+MainUsers/SMAC/VFS/
+MainUsers/SMRetail/
+MainUsers/SMRetail/VFS/
+MainUsers/SMSGT/
+MainUsers/SMSGT/VFS/
+MainUsers/SNR/
+MainUsers/SNR/VFS/
+MainUsers/STM/
+MainUsers/STM/VFS/
+MainUsers/Sandz/
+MainUsers/Sandz/VFS/
+MainUsers/Schneider/
+MainUsers/Schneider/VFS/
+MainUsers/Smart/
+MainUsers/Smart/VFS/
+MainUsers/Tcscba/
+MainUsers/Tcscba/VFS/
+MainUsers/Temp/
+MainUsers/Temp/VFS/
+MainUsers/TempAccount_BAK/
+MainUsers/TempAccount_BAK/VFS/
+MainUsers/Texas/
+MainUsers/Texas/VFS/
+MainUsers/Transcloudtech/
+MainUsers/Transcloudtech/VFS/
+MainUsers/UCPB/
+MainUsers/UCPB/VFS/
+MainUsers/UTGlobal/
+MainUsers/UTGlobal/VFS/
+MainUsers/Vmtech/
+MainUsers/Vmtech/VFS/
+MainUsers/Wipro/
+MainUsers/Wipro/VFS/
+MainUsers/Woolworths/
+MainUsers/Woolworths/VFS/
+MainUsers/WorleyParson/
+MainUsers/WorleyParson/VFS/
+MainUsers/Ynvolve/
+MainUsers/Ynvolve/VFS/
+MainUsers/crushadmin/
+MainUsers/default/
+MainUsers/default/VFS/
+MainUsers/itsmAU/
+MainUsers/itsmAU/VFS/
+MainUsers/itsmPH/
+MainUsers/itsmPH/VFS/
+MainUsers/itsmadmin/
+MainUsers/itsmadmin/VFS/
+MainUsers/ownSol/
+MainUsers/ownSol/VFS/
+MainUsers/westernsydney/
+MainUsers/westernsydney/VFS/
+MainUsers/wiki/
+MainUsers/wiki/VFS/
+
+sent 4,545 bytes  received 13,033 bytes  11,718.67 bytes/sec
+total size is 70,460  speedup is 4.01
+receiving incremental file list
+images/
+
+sent 221 bytes  received 4,937 bytes  3,438.67 bytes/sec
+total size is 13,897  speedup is 2.69
+receiving incremental file list
+
+sent 94 bytes  received 87 bytes  120.67 bytes/sec
+total size is 2,142  speedup is 11.83
+receiving incremental file list
+
+sent 390 bytes  received 88,063 bytes  35,381.20 bytes/sec
+total size is 521,710,488,418  speedup is 5,898,166.13

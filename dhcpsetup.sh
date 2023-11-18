@@ -11,7 +11,11 @@ sudo bash -c 'echo -e "nameserver 127.0.0.1\nnameserver 1.1.1.1\nnameserver 8.8.
 
 # Install dnsmasq
 sudo apt-get update
+<<<<<<< HEAD
 sudo apt-get install dnsmasq -y
+=======
+sudo apt-get install dnsmasq-y
+>>>>>>> c6beb5d5c3611dce4939f90768cbedbc8daba8a2
 
 # Configure dnsmasq
 sudo mv -v /etc/dnsmasq.conf /etc/dnsmasq.conf.orig 2>/dev/null
@@ -20,17 +24,21 @@ l_interface=`ip a | grep -w 'inet' | grep -v 'dynamic' | tail -1 | awk '{print $
 subnet=`ip a | grep -w 'inet' | grep -v 'dynamic' | tail -1 | awk '{print $2}'`
 ip=`echo $subnet | awk -F '/' '{print $1}'`
 sz=`echo $subnet | awk -F '/' '{print $2}'`
+<<<<<<< HEAD
 segment=`echo ${ip%.*}`
 router=`ip route show | head -1 | awk '{print $3}'`
 
 fileBIOS="netboot.xyz.kpxe"
 fileUEFI="netboot.xyz.efi"
+=======
+>>>>>>> c6beb5d5c3611dce4939f90768cbedbc8daba8a2
 
 echo $l_interface
 echo $subnet
 echo $ip
 echo $sz
 
+<<<<<<< HEAD
 sudo bash -c 'echo -e "interface='$l_interface'\nbind-interfaces\n\
 domain=\n\
 \n\
@@ -46,3 +54,12 @@ dhcp-match=set:efi-x86_64,option:client-arch,7\n\
 dhcp-match=set:efi-x86_64,option:client-arch,9\n\
 dhcp-boot=tag:efi-x86_64,'$fileUEFI'\n\
 "' > /etc/dnsmasq.conf
+=======
+
+
+#sudo bash -c 'echo -e "interface=$l_interface\n\
+##bind-interfaces\n\
+#domain=\n\
+#\n
+#dhcp-range=$l_interface,$
+>>>>>>> c6beb5d5c3611dce4939f90768cbedbc8daba8a2
