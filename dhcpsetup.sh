@@ -41,6 +41,14 @@ dhcp-match=set:efi-x86_64,option:client-arch,7\n\
 dhcp-match=set:efi-x86_64,option:client-arch,9\n\
 dhcp-boot=tag:efi-x86_64,'$fileUEFI'\n\
 " > /etc/dnsmasq.conf'
+<<<<<<< HEAD
 sudo systemctl restart dnsmasq
 sudo systemctl enable dnsmasq
 sudo systemctl status dnsmasq
+=======
+
+echo $l_interface
+echo $subnet
+echo $ip
+echo $sz
+>>>>>>> 809cb76821921193a0b3c0ae2896a6fe7bfeaf2b
