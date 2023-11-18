@@ -26,11 +26,6 @@ router=`ip route show | head -1 | awk '{print $3}'`
 fileBIOS="netboot.xyz.kpxe"
 fileUEFI="netboot.xyz.efi"
 
-echo $l_interface
-echo $subnet
-echo $ip
-echo $sz
-
 sudo bash -c 'echo -e "interface='$l_interface'\nbind-interfaces\n\
 domain=\n\
 \n\
@@ -46,3 +41,8 @@ dhcp-match=set:efi-x86_64,option:client-arch,7\n\
 dhcp-match=set:efi-x86_64,option:client-arch,9\n\
 dhcp-boot=tag:efi-x86_64,'$fileUEFI'\n\
 " > /etc/dnsmasq.conf'
+
+echo $l_interface
+echo $subnet
+echo $ip
+echo $sz
