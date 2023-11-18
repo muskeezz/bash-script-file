@@ -45,4 +45,4 @@ dhcp-boot=tag:bios-x86,'$fileBIOS'\n\
 dhcp-match=set:efi-x86_64,option:client-arch,7\n\
 dhcp-match=set:efi-x86_64,option:client-arch,9\n\
 dhcp-boot=tag:efi-x86_64,'$fileUEFI'\n\
-"' > /etc/dnsmasq.conf
+" > /etc/dnsmasq.conf'
