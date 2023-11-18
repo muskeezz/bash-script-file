@@ -21,8 +21,15 @@ subnet=`ip a | grep -w 'inet' | grep -v 'dynamic' | tail -1 | awk '{print $2}'`
 ip=`echo $subnet | awk -F '/' '{print $1}'`
 sz=`echo $subnet | awk -F '/' '{print $2}'`
 
+echo $l_interface
+echo $subnet
+echo $ip
+echo $sz
+
+
+
 #sudo bash -c 'echo -e "interface=$l_interface\n\
-bind-interfaces\n\
-domain=\n\
-\n
-dhcp-range=$l_interface,$
+##bind-interfaces\n\
+#domain=\n\
+#\n
+#dhcp-range=$l_interface,$
