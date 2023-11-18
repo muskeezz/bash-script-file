@@ -14,7 +14,7 @@ sudo apt-get update
 sudo apt-get install dnsmasq -y
 
 # Configure dnsmasq
-sudo mv -v /etc/dnsmasq.conf /etc/dnsmasq.conf.orig 2>/dev/null
+[ ! -e /etc/dnsmasq.conf.orig] && sudo mv -v /etc/dnsmasq.conf /etc/dnsmasq.conf.orig 2>/dev/null
 
 l_interface=`ip a | grep -w 'inet' | grep -v 'dynamic' | tail -1 | awk '{print $7}'`
 subnet=`ip a | grep -w 'inet' | grep -v 'dynamic' | tail -1 | awk '{print $2}'`
@@ -25,11 +25,6 @@ router=`ip route show | head -1 | awk '{print $3}'`
 
 fileBIOS="netboot.xyz.kpxe"
 fileUEFI="netboot.xyz.efi"
-
-echo $l_interface
-echo $subnet
-echo $ip
-echo $sz
 
 sudo bash -c 'echo -e "interface='$l_interface'\nbind-interfaces\n\
 domain=\n\
@@ -46,3 +41,6 @@ dhcp-match=set:efi-x86_64,option:client-arch,7\n\
 dhcp-match=set:efi-x86_64,option:client-arch,9\n\
 dhcp-boot=tag:efi-x86_64,'$fileUEFI'\n\
 " > /etc/dnsmasq.conf'
+sudo systemctl restart dnsmasq
+sudo systemctl enable dnsmasq
+sudo systemctl status dnsmasq
