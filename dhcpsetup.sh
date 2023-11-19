@@ -15,7 +15,7 @@ sudo apt-get update
 sudo apt-get install dnsmasq -y
 
 # Configure dnsmasq
-[ ! -e /etc/dnsmasq.conf.orig] && mv -v /etc/dnsmasq.conf /etc/dnsmasq.conf.orig 2>/dev/null
+[ ! -e /etc/dnsmasq.conf.orig ] && sudo mv -v /etc/dnsmasq.conf /etc/dnsmasq.conf.orig 2>/dev/null
 
 interface=`ip a | grep -w 'inet' | grep -v 'dynamic' | tail -1 | awk '{print $7}'`
 ip=`ip a | grep -w 'inet' | grep -v 'dynamic' | tail -1 | awk '{print $2}' | awk -F '/' '{print $1}'`
