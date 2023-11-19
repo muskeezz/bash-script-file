@@ -1,5 +1,9 @@
 #!/bin/bash
 
+sudo apt-get update &
+update_pid=$!
+wait $update_pid
+
 # Disable systemd-resolved
 sudo systemctl stop systemd-resolved
 sudo systemctl disable systemd-resolved
@@ -11,7 +15,6 @@ nm2="8.8.8.8"
 echo "nameserver 127.0.0.1\nnameserver $nm1\nnameserver $nm2" >~/resolv.conf
 
 # Install dnsmasq
-sudo apt-get update
 sudo apt-get install dnsmasq -y
 
 # Configure dnsmasq
