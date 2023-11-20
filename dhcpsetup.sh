@@ -26,8 +26,7 @@ fileBIOS="netboot.xyz.kpxe"
 fileUEFI="netboot.xyz.efi"
 
 echo "port=0\ninterface=$interface\nbind-dynamic\n\
-log-dhcp\n\
-dhcp-authoritative\n\         
+log-dhcp\ndhcp-authoritative\n\
 dhcp-range=$segment.2,$segment.254,255.255.255.0,8h\n\
 dhcp-option=option:router,$router\n\
 dhcp-option=option:dns-server,$nm1\n\
