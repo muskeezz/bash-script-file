@@ -29,8 +29,8 @@ echo "port=0\ninterface=$interface\nbind-dynamic\n\
 log-dhcp\ndhcp-authoritative\n\
 dhcp-range=$segment.2,$segment.254,255.255.255.0,8h\n\
 dhcp-option=option:router,$router\n\
-dhcp-option=option:dns-server,$nm1\n\
-dhcp-option=option:dns-server,$nm2\n\
+dhcp-option=option:dns-server,8.8.8.8\n\
+dhcp-option=option:dns-server,1.1.1.1\n\
 dhcp-match=set:bios,option:client-arch,0\n\
 dhcp-match=set:efi-i32,option:client-arch,2\n\
 dhcp-match=set:efi-i32,option:client-arch,6\n\
