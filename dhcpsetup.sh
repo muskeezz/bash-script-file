@@ -15,7 +15,7 @@ nm2="8.8.8.8"
 echo "nameserver 127.0.0.1\nnameserver $nm1\nnameserver $nm2" >~/resolv.conf
 
 # Install dnsmasq
-sudo apt-get install dnsmasq -y
+[ $(sudo apt list --installed | grep -w dnsmasq | wc -l) -le 1 ] && sudo apt install dnsmasq -y
 
 # Configure dnsmasq
 [ ! -e /etc/dnsmasq.conf.orig ] && sudo mv -v /etc/dnsmasq.conf /etc/dnsmasq.conf.orig 2>/dev/null
@@ -24,7 +24,7 @@ interface=`ip a | grep -w 'inet' | grep -v 'dynamic' | tail -1 | awk '{print $7}
 ip=`ip a | grep -w 'inet' | grep -v 'dynamic' | tail -1 | awk '{print $2}' | awk -F '/' '{print $1}'`
 segment=`echo ${ip%.*}`
 router=`ip route show | head -1 | awk '{print $3}'`
-netboot="192.168.18.200"            
+netboot="$ip"            
 fileBIOS="netboot.xyz.kpxe"
 fileUEFI="netboot.xyz.efi"
 
