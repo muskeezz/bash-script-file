@@ -20,11 +20,11 @@ echo "nameserver 127.0.0.1\nnameserver $nm1\nnameserver $nm2" >~/resolv.conf
 # Configure dnsmasq
 [ ! -e /etc/dnsmasq.conf.orig ] && sudo mv -v /etc/dnsmasq.conf /etc/dnsmasq.conf.orig 2>/dev/null
 
-interface=`ip a | grep -w 'inet' | grep -v 'dynamic' | tail -1 | awk '{print $7}'`
-ip=`ip a | grep -w 'inet' | grep -v 'dynamic' | tail -1 | awk '{print $2}' | awk -F '/' '{print $1}'`
-segment=`echo ${ip%.*}`
-router=`ip route show | head -1 | awk '{print $3}'`
-netboot="$ip"            
+interface=$(ip a | grep -Ev 'dynamic|host' | grep -w 'inet' | head -1 | awk '{print $7}')
+ip=$(ip a | grep -Ev 'dynamic|host' | grep -w 'inet' | head -1 | awk '{print $2}' | awk -F '/' '{print $1}')
+segment=$(echo ${ip%.*})
+router=$(ip route show | head -1 | awk '{print $3}')
+netboot="$ip"         # PXE boot host is itself   
 fileBIOS="netboot.xyz.kpxe"
 fileUEFI="netboot.xyz.efi"
 
