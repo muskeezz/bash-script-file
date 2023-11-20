@@ -1,24 +1,21 @@
 #!/bin/bash
+# This scrip works on ubuntu 20.04
 
 sudo apt-get update &
 update_pid=$!
 wait $update_pid
 
-# Disable systemd-resolved
-sudo systemctl stop systemd-resolved
-sudo systemctl disable systemd-resolved
-sudo unlink /etc/resolv.conf
-
-# Hard code the nameserver
-nm1="1.1.1.1"
-nm2="8.8.8.8"
-echo "nameserver 127.0.0.1\nnameserver $nm1\nnameserver $nm2" >~/resolv.conf
+# Disable systemd-resolved and Hard code the nameserver
+[ -L /etc/resolv.conf ] && sudo systemctl stop systemd-resolved\
+&& sudo systemctl disable systemd-resolved\
+&& sudo unlink /etc/resolv.conf\
+&& echo "nameserver 127.0.0.53\nnameserver 8.8.8.8\nnameserver 1.1.1.1" >~/resolv.conf\
+&& chmod 644 ~/resolv.conf\
+&& sudo chown root:root ~/resolv.conf\
+&& sudo mv -v ~/resolv.conf /etc/
 
 # Install dnsmasq
 [ $(sudo apt list --installed | grep -w dnsmasq | wc -l) -le 1 ] && sudo apt install dnsmasq -y
-
-# Configure dnsmasq
-[ ! -e /etc/dnsmasq.conf.orig ] && sudo mv -v /etc/dnsmasq.conf /etc/dnsmasq.conf.orig 2>/dev/null
 
 interface=$(ip a | grep -Ev 'dynamic|host' | grep -w 'inet' | head -1 | awk '{print $7}')
 ip=$(ip a | grep -Ev 'dynamic|host' | grep -w 'inet' | head -1 | awk '{print $2}' | awk -F '/' '{print $1}')
@@ -29,7 +26,8 @@ fileBIOS="netboot.xyz.kpxe"
 fileUEFI="netboot.xyz.efi"
 
 echo "port=0\ninterface=$interface\nbind-dynamic\n\
-log-dhcp\ndhcp-authoritative\n\
+log-dhcp\n\
+dhcp-authoritative\n\         
 dhcp-range=$segment.2,$segment.254,255.255.255.0,8h\n\
 dhcp-option=option:router,$router\n\
 dhcp-option=option:dns-server,$nm1\n\
@@ -45,9 +43,11 @@ dhcp-match=set:efi-a64,option:client-arch,11\n\
 dhcp-boot=tag:bios,$fileBIOS,,$netboot\n\
 dhcp-boot=tag:!bios,$fileUEFI,,$netboot" > ~/dnsmasq.conf
 
-chmod 644 ~/dnsmasq.conf ~/resolv.conf
-sudo chown root:root ~/dnsmasq.conf ~/resolv.conf
-sudo mv -v ~/dnsmasq.conf ~/resolv.conf /etc/
+# Configure dnsmasq, dnsmasq log can be read at /var/log/syslog
+[ ! -e /etc/dnsmasq.conf.orig ] && sudo mv -v /etc/dnsmasq.conf /etc/dnsmasq.conf.orig 2>/dev/null
+chmod 644 ~/dnsmasq.conf
+sudo chown root:root ~/dnsmasq.conf
+sudo mv -v ~/dnsmasq.conf /etc/
 
 sudo systemctl restart dnsmasq
-sudo systemctl enable dnsmasq
+[ $(sudo systemctl is-enabled dnsmasq) != enabled ] && sudo systemctl enable dnsmasq
