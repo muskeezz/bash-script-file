@@ -43,10 +43,10 @@ dhcp-boot=tag:bios,$fileBIOS,,$netboot\n\
 dhcp-boot=tag:!bios,$fileUEFI,,$netboot" > ~/dnsmasq.conf
 
 # Configure dnsmasq, dnsmasq log can be read at /var/log/syslog
-[ ! -e /etc/dnsmasq.conf.orig ] && sudo mv -v /etc/dnsmasq.conf /etc/dnsmasq.conf.orig 2>/dev/null
+#[ ! -e /etc/dnsmasq.conf.orig ] && sudo mv -v /etc/dnsmasq.conf /etc/dnsmasq.conf.orig 2>/dev/null
 chmod 644 ~/dnsmasq.conf
 sudo chown root:root ~/dnsmasq.conf
-sudo mv -v ~/dnsmasq.conf /etc/
+sudo mv -v ~/dnsmasq.conf /etc/dnsmasq.d/
 
 sudo systemctl restart dnsmasq
 [ $(sudo systemctl is-enabled dnsmasq) != enabled ] && sudo systemctl enable dnsmasq
