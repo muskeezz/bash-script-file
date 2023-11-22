@@ -1,9 +1,9 @@
 #!/bin/bash
 # This scrip works on ubuntu 20.04
+# imported os_update
 
-sudo apt-get update &
-update_pid=$!
-wait $update_pid
+#./os_update.sh &
+#wait
 
 # Disable systemd-resolved and Hard code the nameserver
 [ -L /etc/resolv.conf ] && sudo systemctl stop systemd-resolved\
