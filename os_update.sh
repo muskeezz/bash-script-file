@@ -3,7 +3,6 @@
 cleanup(){
     rm -f .lock
     rm -f update-*.log
-    rm -f installed-package-*.log
     rm -f dpkg-installed-*.log
     rm -f upgrade-*.log
 }
@@ -18,12 +17,12 @@ check_new_kernel(){
     fi
 }
 
+
 distro=$(cat /etc/os-release | grep "^ID=" | cut -d= -f2)
 
 case "$distro" in
     "ubuntu" | "debian")
         sudo apt update > update-$(date '+%Y%m%d').log 2>&1
-        sudo apt list --installed > installed-package-$(date '+%Y%m%d').log 2>&1
         sudo dpkg -l > dpkg-installed-$(date '+%Y%m%d').log 2>&1
         sudo apt list --upgradable > upgrade-$(date '+%Y%m%d').log 2>&1
         echo "New Package available. Please see upgrade-$(date '+%Y%m%d').log"
