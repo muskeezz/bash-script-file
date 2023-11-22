@@ -5,11 +5,13 @@ distro=$(cat /etc/os-release | grep "^ID=" | cut -d= -f2)
 case "$distro" in
     "ubuntu" | "debian")
         #sudo apt-get update
-        sudo apt update > update.log 2>&1
+        sudo apt update > update-$(date '+%Y%m%d').log 2>&1
         #sudo apt-get --simulate upgrade > upgrade.log 2>&1
-        sudo apt list --upgradable > upgrade.log 2>&1
-        echo "This will not run the upgrade. Please check upgrade.log"
-        #sudo apt-get upgrade
+        sudo apt list --installed > installed-package-$(date '+%Y%m%d').log 2>&1
+        sudo dpkg -l | grep linux-image dpkg-installed-$(date '+%Y%m%d').log 2>&1
+        sudo apt list --upgradable > upgrade-$(date '+%Y%m%d').log 2>&1
+        echo "New Package available. Please see upgrade-$(date '+%Y%m%d').log"
+        check_new_kernel
         ;;
     "centos" | "fedora" | "rhel")
         sudo yum update
@@ -21,3 +23,11 @@ case "$distro" in
         echo "Unsupported distribution: $distro"
         ;;
 esac
+
+check_new_kernel(){
+    local latest_kernel=$(apt list --upgradable 2>/dev/null | grep -oP 'linux-image-\d+\.\d+\.\d+-\d+' | sort -V | tail -1)
+    local current_kernel=$(uname -r)
+    if [[ $latest_kernel > $current_kernel ]]; then
+        echo "A new kernel version ($latest_kernel) is available for upgrade."
+    fi
+}
