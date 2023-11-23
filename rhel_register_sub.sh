@@ -1,8 +1,7 @@
 #!/bin/bash
 # This script is to register your RHEL on Red Hat Subscription Manager
+source /etc/os-release
 
-
-ID=$(cat /etc/os-release |grep "^ID=" | cut -d= -f2 | sed 's/"//g')
 [ ! "$ID" = "rhel" ] && echo "This Script Support ONLY RHEL OS" && exit 1
 
 echo "Login your Red Hat Customer Portal Account"
