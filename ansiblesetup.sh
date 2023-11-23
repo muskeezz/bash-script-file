@@ -1,22 +1,31 @@
-#!/bin/bash
+#!/usr/bin/env bash
 source /etc/os-release
 LOG_FILE="ansible_install.log"
-
 # Function to log messages
 log() {
     timestamp=$(date +"%Y-%m-%d %T")
     echo "[$timestamp] $1" >> "$LOG_FILE"
 }
+# Funtion to clean up script
+cleanup() {
+        signal="$1"
+        if [ "$signal" != "EXIT" ]; then
+        log "Recieved signal: $signal"
+        log "Performing cleanup tasks..."
+        sudo apt-add-repository -r ppa:ansible/ansible
+}
+trap 'cleanup $?' INT TERM HUP QUIT
 
 # Function to install Ansible on Ubuntu/Debian
 u_ansible() {
     log "Checking if Ansible is installed."
     if ! dpkg -l | grep -q '^ii.*ansible'; then
     log "Updating package lists..."
-    sudo apt update >> "$LOG_FILE" 2>&1
+    
 
     if ls /etc/apt/sources.list.d/ansible* 1> /dev/null 2>&1; then
-        log "Ansible repository found. Installing Ansible..."
+        log "Ansible repository found. Updating Repository and Installing Ansible..."
+        sudo apt update >> "$LOG_FILE" 2>&1
         sudo apt install ansible -y >> "$LOG_FILE" 2>&1
     else
         log "Adding Ansible repository..."
