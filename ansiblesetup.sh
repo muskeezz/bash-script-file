@@ -13,28 +13,29 @@ cleanup() {
         log "Recieved signal: $signal"
         log "Performing cleanup tasks..."
         sudo apt-add-repository -r ppa:ansible/ansible
+        fi
 }
 trap 'cleanup $?' INT TERM HUP QUIT
 
 # Function to install Ansible on Ubuntu/Debian
 u_ansible() {
-    log "Checking if Ansible is installed."
+        log "Checking if Ansible is installed."
     if ! dpkg -l | grep -q '^ii.*ansible'; then
-    log "Updating package lists..."
-    
-
-    if ls /etc/apt/sources.list.d/ansible* 1> /dev/null 2>&1; then
-        log "Ansible repository found. Updating Repository and Installing Ansible..."
-        sudo apt update >> "$LOG_FILE" 2>&1
-        sudo apt install ansible -y >> "$LOG_FILE" 2>&1
-    else
-        log "Adding Ansible repository..."
-        sudo apt-add-repository ppa:ansible/ansible -y >> "$LOG_FILE" 2>&1
-        log "Updating package lists after adding repository..."
-        sudo apt update >> "$LOG_FILE" 2>&1
-        log "Installing Ansible..."
-        sudo apt install ansible -y >> "$LOG_FILE" 2>&1
-    fi
+        log "Ansibble is not installed"
+        log "Checking ansible repositroy..."
+        if ls /etc/apt/sources.list.d/ansible* 1> /dev/null 2>&1; then
+                log "Ansible repository found. Updating repository and installing ansible..."
+                sudo apt update >> "$LOG_FILE" 2>&1
+                sudo apt install ansible -y >> "$LOG_FILE" 2>&1
+        else
+                log "Ansible repository not found."
+                log "Adding ansible repository..."
+                sudo apt-add-repository ppa:ansible/ansible -y >> "$LOG_FILE" 2>&1
+                log "Updating package lists after adding repository..."
+                sudo apt update >> "$LOG_FILE" 2>&1
+                log "Installing Ansible..."
+                sudo apt install ansible -y >> "$LOG_FILE" 2>&1
+        fi
     else
         log "Ansible is installed."
         exit 0
