@@ -11,7 +11,7 @@ log() {
 # Function to install Ansible on Ubuntu/Debian
 u_ansible() {
     log "Checking if Ansible is installed."
-    if sudo apt list --installed | grep ansible* | wc -l = 0; then
+    if ! dpkg -l | grep -q '^ii.*ansible'; then
     log "Updating package lists..."
     sudo apt update >> "$LOG_FILE" 2>&1
 
@@ -34,9 +34,8 @@ u_ansible() {
 
 # Function to install Ansible on RHEL/CentOS/Fedora
 r_ansible() {
-    log "Installing EPEL repository..."
+    log "Installing Ansible on RHEL/CentOS/Fedora from EPEL repository..."
     sudo yum install -y epel-release >> "$LOG_FILE" 2>&1
-    log "Installing Ansible from EPEL repository..."
     sudo yum install -y ansible >> "$LOG_FILE" 2>&1
 }
 
