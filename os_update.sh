@@ -12,7 +12,7 @@ source /etc/os-release
 case "$ID" in
     "ubuntu" | "debian")
         log "$PRETTY_NAME UPDATING REPOSITORY..."
-        echo "Checking Updats..."
+        echo "Checking Updates..."
         sudo apt update >> "$LOG_FILE" 2>&1
         if [ $? != 0 ] ; then
             echo "New Updates Available!"
@@ -24,7 +24,7 @@ case "$ID" in
         log "$PRETTY_NAME UPDATING REPOSITORY..."
         sudo yum makecache >> "$LOG_FILE" 2>&1
         log "Checking new update..."
-        echo "Checking Updats..."
+        echo "Checking Updates..."
         sudo yum check-update >> "$LOG_FILE" 2>&1
         if [ $? != 0 ] ; then
             echo "New Updates Available!"
