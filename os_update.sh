@@ -19,7 +19,23 @@ case "$ID" in
             echo "No Update!"
         fi
         ;;
-    "centos" | "fedora" | "rhel")
+    "fedora" | "rhel")
+        log "$PRETTY_NAME UPDATING REPOSITORY..."
+        sudo yum makecache >> "$LOG_FILE" 2>&1
+        log "Checking new update..."
+        sudo yum check-update >> "$LOG_FILE" 2>&1
+        if [ $? != 0 ] ; then
+            echo "New Updates Available!"
+        else
+            echo "No Update!"
+        fi
+        ;;
+    "centos")
+        grep -Eow '^mirrorlist|^#baseurl' /etc/yum.repos.d/CentOS-Linux-*
+        if [ $? = 0 ]; then
+        sudo sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+        sudo sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+        fi
         log "$PRETTY_NAME UPDATING REPOSITORY..."
         sudo yum makecache >> "$LOG_FILE" 2>&1
         log "Checking new update..."
