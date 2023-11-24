@@ -13,20 +13,22 @@ case "$ID" in
     "ubuntu" | "debian")
         log "$PRETTY_NAME UPDATING REPOSITORY..."
         sudo apt update >> "$LOG_FILE" 2>&1
+        if [ $? != 0 ] ; then
+            echo "New Updates Available!"
+        else
+            echo "No Update!"
+        fi
         ;;
     "centos" | "fedora" | "rhel")
         log "$PRETTY_NAME UPDATING REPOSITORY..."
         sudo yum makecache >> "$LOG_FILE" 2>&1
         log "Checking new update..."
         sudo yum check-update >> "$LOG_FILE" 2>&1
-        if $? != 0 ; then
-        echo "New Updates Available!"
+        if [ $? != 0 ] ; then
+            echo "New Updates Available!"
         else
-        echo "No Update!
+            echo "No Update!"
         fi
-        ;;
-    "opensuse" | "sles")
-        sudo zypper refresh && sudo zypper update
         ;;
     *)
         echo "Unsupported distribution: $ID"
