@@ -1,41 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-cleanup(){
-    rm -f $_lock
-    rm -f $dpkglog
-    rm -f $upgradelog
-}
-trap cleanup EXIT
-
-_lock=".lock"
-[ -f .lock ] && exit 0 || touch "$_lock"
-
-upgradelog="upgrade.log"
-dpkglog="dpkg-installed.log"
-
-check_new_kernel(){
-    local new_kernel=$(sudo apt list --upgradable | grep linux-image | wc -l)
-    if [ $new_kernel != 0 ]; then
-        #echo "A new kernel version ($latest_kernel) is available for upgrade."
-        echo "A new kernel version is available for upgrade."
-    fi
-}
-check_new_package(){
-    sudo apt update
-    local upgrade=$(sudo apt list --upgradable | wc -l)
-    if [ $upgrade -gt 1 ]; then
-        sudo dpkg -l > $dpkglog
-        sudo apt list --upgradable > $upgradelog
-        echo "New Package available. Please see upgrade-$(date '+%Y%m%d').log"
-    fi
+# Funtion logging
+LOG_FILE="update.log"
+log() {
+    timestamp=$(date +"%Y-%m-%d %T")
+    echo "[$timestamp] $1" >> "$LOG_FILE"
 }
 
-distro=$(cat /etc/os-release | grep "^ID=" | cut -d= -f2)
-
-case "$distro" in
+# Main Script
+source /etc/os-release
+case "$ID" in
     "ubuntu" | "debian")
-        check_new_package
-        check_new_kernel
+        log "$PRETTY_NAME UPDATING..."
+        sudo apt update >> "$LOG_FILE" 2>&1
         ;;
     "centos" | "fedora" | "rhel")
         sudo yum update
@@ -44,8 +21,6 @@ case "$distro" in
         sudo zypper refresh && sudo zypper update
         ;;
     *)
-        echo "Unsupported distribution: $distro"
+        echo "Unsupported distribution: $ID"
         ;;
 esac
-
-#rm -f "$_lock"

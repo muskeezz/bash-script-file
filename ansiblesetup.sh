@@ -23,7 +23,7 @@ u_ansible() {
     if ! dpkg -l | grep -q '^ii.*ansible'; then
         log "Ansibble is not installed"
         log "Checking ansible repositroy..."
-        if ls /etc/apt/sources.list.d/ansible* 1> /dev/null 2>&1; then
+        if sudo ls /etc/apt/sources.list.d/ansible* 1> /dev/null 2>&1; then
                 log "Ansible repository found. Updating repository and installing ansible..."
                 sudo apt update >> "$LOG_FILE" 2>&1
                 sudo apt install ansible -y >> "$LOG_FILE" 2>&1
@@ -37,16 +37,54 @@ u_ansible() {
                 sudo apt install ansible -y >> "$LOG_FILE" 2>&1
         fi
     else
-        log "Ansible is installed."
+        log "Ansible already installed."
         exit 0
     fi
 }
 
 # Function to install Ansible on RHEL/CentOS/Fedora
 r_ansible() {
-    log "Installing Ansible on RHEL/CentOS/Fedora from EPEL repository..."
-    sudo yum install -y epel-release >> "$LOG_FILE" 2>&1
-    sudo yum install -y ansible >> "$LOG_FILE" 2>&1
+log "Checking if Ansible is installed."
+if ! rpm -qa | grep -q ansible; then
+        log "Ansibble is not installed"
+        log "Checking EPEL repository..."
+        if sudo yum repolist | grep epel 1> /dev/null 2>&1; then
+                log "EPEL repository found. Updating repository and installing ansible..."
+                sudo yum makecache >> "$LOG_FILE" 2>&1
+                log "Checking if pip3 is installed."
+                if ! rpm -qa | grep -q python3-pip; then
+                        log "pip3 is not installed"
+                        log "Installing pip3..."
+                        sudo yum install python3-pip -y >> "$LOG_FILE" 2>&1
+                        log "Installing Ansible..."
+                        sudo pip3 install ansible -y >> "$LOG_FILE" 2>&1
+                else
+                        log "pip3 is installed"
+                        log "Installing Ansible..."
+                        sudo pip3 install ansible -y >> "$LOG_FILE" 2>&1
+                fi
+        else
+                log "EPEL repository not found."
+                log "Installing EPEL repository..."
+                sudo yum install -y epel-release >> "$LOG_FILE" 2>&1
+                log "Updating package lists after adding EPEL repository..."
+                sudo yum makecache >> "$LOG_FILE" 2>&1
+                log "Checking if pip3 is installed."
+                if ! rpm -qa | grep -q python3-pip; then
+                        log "pip3 is not installed"
+                        log "Installing pip3..."
+                        sudo yum install python3-pip -y >> "$LOG_FILE" 2>&1
+                        log "Installing Ansible..."
+                        sudo pip3 install ansible -y >> "$LOG_FILE" 2>&1
+                else
+                        log "pip3 is installed"
+                        log "Installing Ansible..."
+                        sudo pip3 install ansible -y >> "$LOG_FILE" 2>&1
+                fi
+        fi
+else
+        log "Ansible already installed."
+        exit 0
 }
 
 case $ID in
