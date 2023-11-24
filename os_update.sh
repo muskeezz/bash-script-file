@@ -33,15 +33,15 @@ case "$ID" in
         fi
         ;;
     "centos")
-        grep -Eowq '^mirrorlist|^#baseurl' /etc/yum.repos.d/CentOS-Linux-*
+        grep -Eowq '^mirrorlist|^#baseurl=http://mirror' /etc/yum.repos.d/CentOS-Linux-*
         if [ $? = 0 ]; then
-        sudo sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
-        sudo sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+        sudo sed -i 's/^mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*
+        sudo sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*
         fi
         log "$PRETTY_NAME UPDATING REPOSITORY..."
         sudo yum makecache >> "$LOG_FILE" 2>&1
         log "Checking new update..."
-        echo "Checking Updats..."
+        echo "Checking Updates..."
         sudo yum check-update >> "$LOG_FILE" 2>&1
         if [ $? != 0 ] ; then
             echo "New Updates Available!"
