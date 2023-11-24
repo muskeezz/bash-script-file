@@ -12,6 +12,7 @@ source /etc/os-release
 case "$ID" in
     "ubuntu" | "debian")
         log "$PRETTY_NAME UPDATING REPOSITORY..."
+        echo "Checking Updats..."
         sudo apt update >> "$LOG_FILE" 2>&1
         if [ $? != 0 ] ; then
             echo "New Updates Available!"
@@ -23,6 +24,7 @@ case "$ID" in
         log "$PRETTY_NAME UPDATING REPOSITORY..."
         sudo yum makecache >> "$LOG_FILE" 2>&1
         log "Checking new update..."
+        echo "Checking Updats..."
         sudo yum check-update >> "$LOG_FILE" 2>&1
         if [ $? != 0 ] ; then
             echo "New Updates Available!"
@@ -31,7 +33,7 @@ case "$ID" in
         fi
         ;;
     "centos")
-        grep -Eow '^mirrorlist|^#baseurl' /etc/yum.repos.d/CentOS-Linux-*
+        grep -Eowq '^mirrorlist|^#baseurl' /etc/yum.repos.d/CentOS-Linux-*
         if [ $? = 0 ]; then
         sudo sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
         sudo sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
@@ -39,6 +41,7 @@ case "$ID" in
         log "$PRETTY_NAME UPDATING REPOSITORY..."
         sudo yum makecache >> "$LOG_FILE" 2>&1
         log "Checking new update..."
+        echo "Checking Updats..."
         sudo yum check-update >> "$LOG_FILE" 2>&1
         if [ $? != 0 ] ; then
             echo "New Updates Available!"
